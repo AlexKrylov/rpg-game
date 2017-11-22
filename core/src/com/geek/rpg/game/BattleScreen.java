@@ -10,7 +10,6 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
@@ -21,9 +20,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.geek.rpg.game.actions.BaseAction;
-import com.geek.rpg.game.actions.DefenceStanceAction;
-import com.geek.rpg.game.actions.MeleeAttackAction;
-import com.geek.rpg.game.actions.RestAction;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +27,7 @@ import java.util.List;
 public class BattleScreen implements Screen {
     private SpriteBatch batch;
     private BitmapFont font;
+    private BitmapFont font36;
     private Background background;
     private List<Unit> units;
     private int currentUnitIndex;
@@ -113,7 +110,6 @@ public class BattleScreen implements Screen {
         unitFactory.createUnitAndAddToBattle(UnitFactory.UnitType.SKELETON, this, player2, false, 2, 2);
         unitFactory.createUnitAndAddToBattle(UnitFactory.UnitType.KNIGHT, this, player2, false, 3, 1);
 
-
         mip = new MyInputProcessor();
         Gdx.input.setInputProcessor(mip);
         background = new Background();
@@ -145,10 +141,13 @@ public class BattleScreen implements Screen {
     public void createGUI() {
         stage = new Stage(ScreenManager.getInstance().getViewport(), batch);
         skin = new Skin(Assets.getInstance().getAtlas());
-
+        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("zorque.ttf"));
+        FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+        parameter.size = 36;
+        font36 = generator.generateFont(parameter);
         TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
         textButtonStyle.up = skin.getDrawable("menuBtn");
-        textButtonStyle.font = font;
+        textButtonStyle.font = font36;
         skin.add("tbs", textButtonStyle);
         Button btnExit = new TextButton("MENU", skin, "tbs");
         btnExit.setPosition(980, 600);
@@ -177,7 +176,6 @@ public class BattleScreen implements Screen {
                 actionPanel.setVisible(false);
                 o.setActionPanel(actionPanel);
                 stage.addActor(actionPanel);
-
                 int counter = 0;
                 for (BaseAction a : o.getActions()) {
                     final BaseAction ba = a;
@@ -286,7 +284,7 @@ public class BattleScreen implements Screen {
             btnStayAtThisLevel.addListener(new ChangeListener() {
                 @Override
                 public void changed(ChangeEvent event, Actor actor) {
-
+                    ScreenManager.getInstance().switchScreen(ScreenManager.ScreenType.BATTLE);
                 }
             });
         }
