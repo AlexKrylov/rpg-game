@@ -44,8 +44,7 @@ public class BattleScreen implements Screen {
     private Skin skin;
     private MyInputProcessor mip;
     private SpecialFXEmitter specialFXEmitter;
-    private Texture buttonTexture;
-    private Rectangle rectangle;
+    private Group actionPanel;
 
     public int getLevel() {
         return level;
@@ -144,7 +143,7 @@ public class BattleScreen implements Screen {
     }
 
     public void createGUI() {
-        stage = new Stage(ScreenManager.getInstance().getViewport(),batch);
+        stage = new Stage(ScreenManager.getInstance().getViewport(), batch);
         skin = new Skin(Assets.getInstance().getAtlas());
 
         TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
@@ -162,7 +161,6 @@ public class BattleScreen implements Screen {
             }
         });
 
-
         List<BaseAction> list = unitFactory.getActions();
         for (BaseAction o : list) {
             skin.add(o.getName(), o.getBtnTexture());
@@ -172,7 +170,7 @@ public class BattleScreen implements Screen {
         }
         for (Unit o : units) {
             if (!o.isAI()) {
-                Group actionPanel = new Group();
+                actionPanel = new Group();
                 Image image = new Image(Assets.getInstance().getAssetManager().get("actionPanel.png", Texture.class));
                 actionPanel.addActor(image);
                 actionPanel.setPosition(1280 / 2 - 840 / 2, 5);
@@ -234,13 +232,11 @@ public class BattleScreen implements Screen {
                 enemyCount++;
             }
         }
-
         for (int i = 0; i < units.size(); i++) {
             if (units.get(i).isAlive() && !units.get(i).isAI()) {
                 alliesCount++;
             }
         }
-
         if (enemyCount == 0 || alliesCount == 0) return true;
         return false;
     }
@@ -260,7 +256,6 @@ public class BattleScreen implements Screen {
             if (mip.isTouchedInArea(units.get(i).getRect()) && units.get(i).isAlive()) {
                 currentUnit.setTarget(units.get(i));
             }
-
         }
         if (!isHeroTurn()) {
             unitFactory.setLevel(unitFactory.getLevel() + 1);
@@ -272,9 +267,28 @@ public class BattleScreen implements Screen {
         specialFXEmitter.update(dt);
 
         if (isGameOver(units)) {
-            if (mip.isTouched()) {
-                ScreenManager.getInstance().switchScreen(ScreenManager.ScreenType.SECONDMENU);
-            }
+            currentUnit.getActionPanel().setVisible(false);
+            Button btnChangeLevel = new TextButton("CHANGE LEVEL", skin, "tbs");
+            btnChangeLevel.setPosition(400, 400);
+            stage.addActor(btnChangeLevel);
+
+            btnChangeLevel.addListener(new ChangeListener() {
+                @Override
+                public void changed(ChangeEvent event, Actor actor) {
+
+                }
+            });
+
+            Button btnStayAtThisLevel = new TextButton("STAY AT THIS LEVEL", skin, "tbs");
+            btnStayAtThisLevel.setPosition(400, 300);
+            stage.addActor(btnStayAtThisLevel);
+
+            btnStayAtThisLevel.addListener(new ChangeListener() {
+                @Override
+                public void changed(ChangeEvent event, Actor actor) {
+
+                }
+            });
         }
     }
 
@@ -290,7 +304,7 @@ public class BattleScreen implements Screen {
         if (isHeroTurn() && currentUnit.getTarget() != null) {
             batch.setColor(1, 0, 0, 0.8f);
             batch.draw(textureSelector, currentUnit.getTarget().getPosition().x, currentUnit.getTarget().getPosition().y - 5);
-            currentUnit.getTarget().showStats(batch,font);
+            currentUnit.getTarget().showStats(batch, font);
         }
         batch.setColor(1, 1, 1, 1);
         for (int i = 0; i < units.size(); i++) {
