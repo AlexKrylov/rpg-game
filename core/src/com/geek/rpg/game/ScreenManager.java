@@ -4,10 +4,9 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-
-/**
- * Created by FlameXander on 13.11.2017.
- */
+import com.geek.rpg.game.screens.BattleScreen;
+import com.geek.rpg.game.screens.MenuScreen;
+import com.geek.rpg.game.screens.SecondMenuScreen;
 
 public class ScreenManager {
     public enum ScreenType {

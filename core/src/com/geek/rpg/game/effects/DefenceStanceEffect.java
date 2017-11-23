@@ -7,15 +7,15 @@ import com.geek.rpg.game.Unit;
 
 public class DefenceStanceEffect extends Effect {
     @Override
-    public void start(InfoSystem infoSystem, Unit unit, int rounds) {
-        super.start(infoSystem, unit, rounds);
+    public void start(Unit unit, int rounds) {
+        super.start(unit, rounds);
         unit.getStats().setDefence(unit.getStats().getDefence() + 3);
-        infoSystem.addMessage("Shields UP!!! +3", unit, FlyingText.Colors.GREEN);
+        unit.getBattleScreen().getInfoSystem().addMessage("Shields UP!!! +3", unit, FlyingText.Colors.GREEN);
     }
 
     @Override
     public void end() {
         unit.getStats().setDefence(unit.getStats().getDefence() - 3);
-        infoSystem.addMessage("Shields DOWN!!! -3", unit, FlyingText.Colors.WHITE);
+        unit.getBattleScreen().getInfoSystem().addMessage("Shields DOWN!!! -3", unit, FlyingText.Colors.WHITE);
     }
 }

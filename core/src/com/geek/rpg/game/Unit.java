@@ -1,27 +1,20 @@
 package com.geek.rpg.game;
 
-import com.badlogic.gdx.graphics.Pixmap;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Group;
-import com.badlogic.gdx.scenes.scene2d.utils.BaseDrawable;
 import com.geek.rpg.game.actions.BaseAction;
-import com.geek.rpg.game.effects.DefenceStanceEffect;
 import com.geek.rpg.game.effects.Effect;
-import com.geek.rpg.game.effects.RegenerationEffect;
+import com.geek.rpg.game.screens.BattleScreen;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Unit {
-    public Unit() {
-
-    }
-
+public class Unit implements Serializable {
     public enum AnimationType {
         IDLE(0), ATTACK(1);
 
@@ -32,13 +25,14 @@ public class Unit {
         }
     }
 
-    private BattleScreen battleScreen;
+    transient private BattleScreen battleScreen;
     private Hero hero;
-    private Unit target;
-    private TextureRegion texture;
-    private TextureRegion textureHpBar;
+    transient private Unit target;
+    transient private TextureRegion texture;
+    transient private TextureRegion textureHpBar;
     private int hp;
     private int maxHp;
+    private int level;
     private Rectangle rect;
     private Autopilot autopilot;
     private Vector2 position;
@@ -46,19 +40,21 @@ public class Unit {
     private float attackAction;
     private float takeDamageAction;
     private Stats stats;
-    private Group actionPanel;
+    transient private Group actionPanel;
     private List<Effect> effects;
-    private List<BaseAction> actions;
-    private int level;
-    private TextureRegion[][] frames;
+    transient private List<BaseAction> actions;
+    private UnitFactory.UnitType type;
+
+    transient private TextureRegion[][] frames;
     private AnimationType currentAnimation;
     private float animationTime;
     private float animationSpeed;
     private int maxFrame;
     private int maxAnimationType;
     private int animationFrame;
-    private final int WIDTH = 90;
-    private final int HEIGHT = 150;
+
+    public static final int WIDTH = 90;
+    public static final int HEIGHT = 150;
 
     public void setCurrentAnimation(AnimationType currentAnimation) {
         this.currentAnimation = currentAnimation;
@@ -116,10 +112,6 @@ public class Unit {
         return actions;
     }
 
-    public void setLevel(int level) {
-        this.level = level;
-    }
-
     public int getLevel() {
         return level;
     }
@@ -152,13 +144,31 @@ public class Unit {
         return texture;
     }
 
-    public Unit(TextureRegion texture, Stats stats) {
+    public UnitFactory.UnitType getType() {
+        return type;
+    }
+
+    public Unit(UnitFactory.UnitType type, TextureRegion texture, Stats stats) {
         this.texture = texture;
+        this.type = type;
         this.effects = new ArrayList<Effect>();
         this.position = new Vector2(0, 0);
         this.actions = new ArrayList<BaseAction>();
         this.stats = stats;
         this.textureHpBar = Assets.getInstance().getAtlas().findRegion("hpBar");
+        this.animationSpeed = 0.2f;
+        this.frames = this.texture.split(WIDTH, HEIGHT);
+        this.maxFrame = this.frames[0].length;
+        this.maxAnimationType = this.frames.length - 1;
+        this.currentAnimation = AnimationType.IDLE;
+    }
+
+    public void reload(TextureRegion texture, List<BaseAction> actions) {
+        this.textureHpBar = Assets.getInstance().getAtlas().findRegion("hpBar");
+        this.texture = texture;
+        this.frames = this.texture.split(WIDTH, HEIGHT);
+        this.actions = actions;
+        this.effects.clear();
         this.animationSpeed = 0.2f;
         this.frames = this.texture.split(WIDTH, HEIGHT);
         this.maxFrame = this.frames[0].length;
@@ -175,7 +185,6 @@ public class Unit {
         this.battleScreen = battleScreen;
         this.position.set(battleScreen.getStayPoints()[cellX][cellY]);
         this.rect = new Rectangle(position.x, position.y, texture.getRegionWidth(), texture.getRegionHeight());
-        this.recalculateSecondaryStats();
     }
 
     public void evade() {
@@ -211,16 +220,6 @@ public class Unit {
         batch.draw(textureHpBar, position.x, position.y + 130, (int) ((float) hp / (float) maxHp * textureHpBar.getRegionWidth()), 20);
         batch.setColor(1, 1, 1, 1);
         font.draw(batch, String.valueOf(hp), position.x, position.y + 149, 90, 1, false);
-    }
-
-    public void showStats(SpriteBatch batch, BitmapFont font){
-        batch.setColor(0.5f, 0, 0, 1);
-        font.draw(batch, "STATS", 15,650);
-        font.draw(batch, "Strenght: " +stats.getStrength()+"", 15,600);
-        font.draw(batch, "Dexteriry: " +stats.getDexterity()+"", 15,550);
-        font.draw(batch, "Endurance: " +stats.getEndurance()+"", 15,500);
-        font.draw(batch, "Defence: " +stats.getDefence()+"", 15,450);
-        font.draw(batch, "SpellPower: " +stats.getSpellpower()+"", 15,400);
     }
 
     public void update(float dt) {
@@ -273,5 +272,21 @@ public class Unit {
 
     public void addEffect(Effect effect) {
         effects.add(effect);
+    }
+
+    public void setLevelTo(int newLevel) {
+        this.level = newLevel;
+        this.stats.recalculate(newLevel);
+        this.recalculateSecondaryStats();
+    }
+
+    public void showStats(SpriteBatch batch, BitmapFont font){
+        batch.setColor(0.5f, 0, 0, 1);
+        font.draw(batch, "STATS", 15,650);
+        font.draw(batch, "Strenght: " +stats.getStrength()+"", 15,600);
+        font.draw(batch, "Dexteriry: " +stats.getDexterity()+"", 15,550);
+        font.draw(batch, "Endurance: " +stats.getEndurance()+"", 15,500);
+        font.draw(batch, "Defence: " +stats.getDefence()+"", 15,450);
+        font.draw(batch, "SpellPower: " +stats.getSpellpower()+"", 15,400);
     }
 }

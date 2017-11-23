@@ -1,4 +1,4 @@
-package com.geek.rpg.game;
+package com.geek.rpg.game.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -7,7 +7,6 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -15,12 +14,14 @@ import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.geek.rpg.game.Assets;
+import com.geek.rpg.game.ScreenManager;
 
 /**
- * Created by FlameXander on 16.11.2017.
+ * Created by slate on 19.11.2017.
  */
 
-public class MenuScreen implements Screen {
+public class SecondMenuScreen implements Screen {
     private Texture backgroundTexture;
     private Texture buttonTexture;
     private BitmapFont font96;
@@ -32,7 +33,7 @@ public class MenuScreen implements Screen {
     private Skin skin;
     private float time;
 
-    public MenuScreen(SpriteBatch batch) {
+    public SecondMenuScreen(SpriteBatch batch) {
         this.batch = batch;
     }
 
@@ -60,7 +61,6 @@ public class MenuScreen implements Screen {
         Gdx.input.setInputProcessor(stage);
         skin = new Skin();
 
-//        TextureRegion tr = Assets.getInstance().getAtlas().findRegion("menuBtn");
         skin.add("textureButton", buttonTexture);
         skin.add("font36", font36);
         TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
@@ -68,20 +68,41 @@ public class MenuScreen implements Screen {
         textButtonStyle.font = font36;
         skin.add("tbs", textButtonStyle);
 
-        Button btnNewGame = new TextButton("START NEW GAME", skin, "tbs");
-        Button btnExitGame = new TextButton("EXIT GAME", skin, "tbs");
-        btnNewGame.setPosition(640 - 240, 300);
-        btnExitGame.setPosition(640 - 240, 180);
-        stage.addActor(btnNewGame);
-        stage.addActor(btnExitGame);
-        btnNewGame.addListener(new ChangeListener() {
+        Button btnContinue = new TextButton("CONTINUE", skin, "tbs");
+        Button btnSaveGame = new TextButton("SAVE GAME", skin, "tbs");
+        Button btnLoadGame = new TextButton("LOAD GAME", skin, "tbs");
+        Button btnExit = new TextButton("EXIT", skin, "tbs");
+        btnContinue.setPosition(640 - 240, 400);
+        btnSaveGame.setPosition(640 - 240, 300);
+        btnLoadGame.setPosition(640 - 240, 200);
+        btnExit.setPosition(640 - 240, 100);
+        stage.addActor(btnContinue);
+        stage.addActor(btnSaveGame);
+        stage.addActor(btnLoadGame);
+        stage.addActor(btnExit);
+
+        btnContinue.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 ScreenManager.getInstance().switchScreen(ScreenManager.ScreenType.BATTLE);
             }
         });
 
-        btnExitGame.addListener(new ChangeListener() {
+        btnSaveGame.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                ScreenManager.getInstance().switchScreen(ScreenManager.ScreenType.BATTLE);
+            }
+        });
+
+        btnLoadGame.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                ScreenManager.getInstance().switchScreen(ScreenManager.ScreenType.MENU);
+            }
+        });
+
+        btnExit.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 Gdx.app.exit();
@@ -94,7 +115,7 @@ public class MenuScreen implements Screen {
         update(delta);
         batch.begin();
         batch.draw(backgroundTexture, 0, 0);
-        font96.draw(batch, "geek-android-rpg-game", 0, 600 + 20.0f * (float)Math.sin(time), 1280, 1, false);
+        font96.draw(batch, "MENU", 0, 600 + 20.0f * (float) Math.sin(time), 1280, 1, false);
         batch.end();
         stage.draw();
     }
@@ -132,3 +153,4 @@ public class MenuScreen implements Screen {
         font96.dispose();
     }
 }
+

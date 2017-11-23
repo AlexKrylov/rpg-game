@@ -1,11 +1,6 @@
 package com.geek.rpg.game;
 
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-
-/**
- * Created by FlameXander on 16.11.2017.
- */
 
 public class SpecialFXEmitter {
     private SpecialFX[] fxs;
@@ -25,12 +20,12 @@ public class SpecialFXEmitter {
         }
     }
 
-    public void setup(Unit me, Unit target, float maxTime, float scaleFrom, float scaleTo, boolean oneCycle) {
+    public void setup(Unit me, Unit target, float maxTime, float scaleFrom, float scaleTo, float delay, boolean oneCycle) {
         for (int i = 0; i < fxs.length; i++) {
             if (!fxs[i].isActive()) {
                 fxs[i].setup(me.getPosition().x + 45, me.getPosition().y + 75,
                         target.getPosition().x + 45, target.getPosition().y + 75,
-                        maxTime, scaleFrom, scaleTo, oneCycle);
+                        maxTime, scaleFrom, scaleTo, delay, oneCycle);
                 break;
             }
         }

@@ -2,12 +2,7 @@ package com.geek.rpg.game;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-
-/**
- * Created by FlameXander on 13.11.2017.
- */
 
 public class Assets {
     private static final Assets ourInstance = new Assets();
@@ -48,7 +43,6 @@ public class Assets {
                 assetManager.load("btnHeal.png", Texture.class);
                 assetManager.load("btnDefence.png", Texture.class);
                 assetManager.load("actionPanel.png", Texture.class);
-                assetManager.load("btnRegen.png", Texture.class);
                 assetManager.finishLoading();
                 textureAtlas = assetManager.get("rpg.pack", TextureAtlas.class);
                 break;
@@ -61,6 +55,7 @@ public class Assets {
                 break;
         }
     }
+
 
     public void clear() {
         assetManager.clear();
