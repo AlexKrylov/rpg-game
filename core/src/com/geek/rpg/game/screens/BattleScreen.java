@@ -127,7 +127,6 @@ public class BattleScreen implements Screen {
         Gdx.input.setInputProcessor(mip);
         textureBackground = Assets.getInstance().getAssetManager().get("background.png", Texture.class);
 
-
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("zorque.ttf"));
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
         parameter.size = 24;

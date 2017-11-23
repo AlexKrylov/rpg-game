@@ -85,7 +85,6 @@ public class UnitFactory {
         data.put(UnitType.ARCHER, archer);
     }
 
-
     public void reloadUnit(Unit unit) {
         Unit unitPattern = data.get(unit.getType());
         unit.reload(unitPattern.getTexture(), unitPattern.getActions());
