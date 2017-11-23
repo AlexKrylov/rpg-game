@@ -17,10 +17,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.geek.rpg.game.Assets;
 import com.geek.rpg.game.ScreenManager;
 
-/**
- * Created by slate on 19.11.2017.
- */
-
 public class SecondMenuScreen implements Screen {
     private Texture backgroundTexture;
     private Texture buttonTexture;

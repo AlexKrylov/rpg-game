@@ -14,7 +14,7 @@ import java.util.Map;
 
 public class UnitFactory {
     public enum UnitType {
-        KNIGHT, SKELETON, MAGE;
+        KNIGHT, SKELETON, MAGE, ARCHER
     }
 
     private Map<UnitType, Unit> data;
@@ -77,8 +77,12 @@ public class UnitFactory {
         mage.getActions().add(actions.get(3));
         mage.getActions().add(actions.get(2));
         mage.getActions().add(actions.get(4));
-
         data.put(UnitType.MAGE, mage);
+
+        Stats archerStats = new Stats(1, 5, 10, 30, 1, 15, 0.5f, 0.5f, 3f, 0.2f, 5.0f);
+        Unit archer = new Unit(UnitType.ARCHER, Assets.getInstance().getAtlas().findRegion("archer"), archerStats);
+        archer.getActions().add(actions.get(0));
+        data.put(UnitType.ARCHER, archer);
     }
 
 

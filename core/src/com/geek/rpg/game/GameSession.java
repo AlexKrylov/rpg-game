@@ -52,8 +52,10 @@ public class GameSession {
     public void makeStandartArmy() {
         UnitFactory factory = new UnitFactory();
         player.setArmy(
-                null, factory.createUnit(UnitFactory.UnitType.KNIGHT, false, false, 1),
-                factory.createUnit(UnitFactory.UnitType.MAGE, false, false, 1), factory.createUnit(UnitFactory.UnitType.SKELETON, false, false, 1),
+                factory.createUnit(UnitFactory.UnitType.ARCHER, false, false, 1),
+                factory.createUnit(UnitFactory.UnitType.KNIGHT, false, false, 1),
+                factory.createUnit(UnitFactory.UnitType.MAGE, false, false, 1),
+                factory.createUnit(UnitFactory.UnitType.SKELETON, false, false, 1),
                 null, null
         );
     }

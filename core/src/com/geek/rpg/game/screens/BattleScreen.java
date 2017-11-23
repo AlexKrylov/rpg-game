@@ -95,8 +95,10 @@ public class BattleScreen implements Screen {
         unitFactory = new UnitFactory();
 
         player2.setArmy(
-                unitFactory.createUnit(UnitFactory.UnitType.KNIGHT, true, true, 1), null,
-                unitFactory.createUnit(UnitFactory.UnitType.SKELETON, true, true, 2), unitFactory.createUnit(UnitFactory.UnitType.MAGE, true, true, 4),
+                unitFactory.createUnit(UnitFactory.UnitType.KNIGHT, true, true, 1),
+                unitFactory.createUnit(UnitFactory.UnitType.ARCHER, true, true, 1),
+                unitFactory.createUnit(UnitFactory.UnitType.SKELETON, true, true, 1),
+                unitFactory.createUnit(UnitFactory.UnitType.MAGE, true, true, 1),
                 null, null
         );
 
