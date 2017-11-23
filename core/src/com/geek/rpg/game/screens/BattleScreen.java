@@ -261,7 +261,9 @@ public class BattleScreen implements Screen {
         specialFXEmitter.update(dt);
 
         if (isGameOver(units)) {
-            currentUnit.getActionPanel().setVisible(false);
+            if(isHeroTurn()) {
+                currentUnit.getActionPanel().setVisible(false);
+            }
             Button btnChangeLevel = new TextButton("CHANGE LEVEL", skin, "tbs");
             btnChangeLevel.setPosition(400, 400);
             stage.addActor(btnChangeLevel);

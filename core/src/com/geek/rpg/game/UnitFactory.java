@@ -1,10 +1,10 @@
 package com.geek.rpg.game;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.geek.rpg.game.actions.BaseAction;
 import com.geek.rpg.game.actions.DefenceStanceAction;
 import com.geek.rpg.game.actions.FireballAction;
 import com.geek.rpg.game.actions.MeleeAttackAction;
+import com.geek.rpg.game.actions.RegenerateAction;
 import com.geek.rpg.game.actions.RestAction;
 
 import java.util.ArrayList;
@@ -55,6 +55,7 @@ public class UnitFactory {
         this.actions.add(new DefenceStanceAction());
         this.actions.add(new RestAction());
         this.actions.add(new FireballAction());
+        this.actions.add(new RegenerateAction());
     }
 
     public void createUnitPatterns() {
@@ -75,6 +76,8 @@ public class UnitFactory {
         Unit mage = new Unit(UnitType.MAGE, Assets.getInstance().getAtlas().findRegion("mage"), mageStats);
         mage.getActions().add(actions.get(3));
         mage.getActions().add(actions.get(2));
+        mage.getActions().add(actions.get(4));
+
         data.put(UnitType.MAGE, mage);
     }
 

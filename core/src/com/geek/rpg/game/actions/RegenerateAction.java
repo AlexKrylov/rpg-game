@@ -5,7 +5,7 @@ import com.geek.rpg.game.effects.RegenerationEffect;
 
 public class RegenerateAction extends BaseAction {
     public RegenerateAction() {
-        super("REGEN", "btnRegen.png");
+        super("REGEN", "btnRegen");
     }
 
     @Override

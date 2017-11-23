@@ -2,7 +2,6 @@ package com.geek.rpg.game.effects;
 
 
 import com.geek.rpg.game.FlyingText;
-import com.geek.rpg.game.InfoSystem;
 import com.geek.rpg.game.Unit;
 
 public class RegenerationEffect extends Effect {
