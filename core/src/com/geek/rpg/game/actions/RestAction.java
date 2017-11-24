@@ -8,8 +8,8 @@ public class RestAction extends BaseAction {
     }
 
     @Override
-    public boolean action(Unit me) {
-        me.changeHp((int)(me.getMaxHp() * 0.15f));
+    public boolean action(Unit currentUnit) {
+        currentUnit.changeHp((int)(currentUnit.getMaxHp() * 0.15f));
         return true;
     }
 }

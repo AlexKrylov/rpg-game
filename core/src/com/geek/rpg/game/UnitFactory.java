@@ -60,26 +60,26 @@ public class UnitFactory {
 
     public void createUnitPatterns() {
         data = new HashMap<UnitType, Unit>();
-        Stats knightStats = new Stats(1, 20000, 10, 30, 2, 5, 5f, 1f, 5f, 1f, 5f);
+        Stats knightStats = new Stats(1, 20, 10, 30, 2, 5, 5f, 1f, 5f, 1f, 5f);
         Unit knight = new Unit(UnitType.KNIGHT, Assets.getInstance().getAtlas().findRegion("knightAnim"), knightStats);
         knight.getActions().add(actions.get(0));
         knight.getActions().add(actions.get(1));
         data.put(UnitType.KNIGHT, knight);
 
-        Stats skeletonStats = new Stats(1, 10000, 20, 15, 1, 0, 2.5f, 5.0f, 5.0f, 1f, 0.5f);
+        Stats skeletonStats = new Stats(1, 10, 20, 15, 1, 0, 2.5f, 5.0f, 5.0f, 1f, 0.5f);
         Unit skeleton = new Unit(UnitType.SKELETON, Assets.getInstance().getAtlas().findRegion("skeleton"), skeletonStats);
         skeleton.getActions().add(actions.get(0));
         skeleton.getActions().add(actions.get(2));
         data.put(UnitType.SKELETON, skeleton);
 
-        Stats mageStats = new Stats(1, 1, 10, 10, 0, 15000, 0.5f, 0.5f, 2f, 0.2f, 5.0f);
+        Stats mageStats = new Stats(1, 1, 10, 10, 0, 15, 0.5f, 0.5f, 2f, 0.2f, 5.0f);
         Unit mage = new Unit(UnitType.MAGE, Assets.getInstance().getAtlas().findRegion("mage"), mageStats);
         mage.getActions().add(actions.get(3));
         mage.getActions().add(actions.get(2));
         mage.getActions().add(actions.get(4));
         data.put(UnitType.MAGE, mage);
 
-        Stats archerStats = new Stats(1, 5000, 10, 30, 1, 15, 0.5f, 0.5f, 3f, 0.2f, 5.0f);
+        Stats archerStats = new Stats(1, 5, 10, 30, 1, 15, 0.5f, 0.5f, 3f, 0.2f, 5.0f);
         Unit archer = new Unit(UnitType.ARCHER, Assets.getInstance().getAtlas().findRegion("archer"), archerStats);
         archer.getActions().add(actions.get(0));
         archer.getActions().add(actions.get(4));
