@@ -18,7 +18,7 @@ import com.geek.rpg.game.Assets;
 import com.geek.rpg.game.GameSession;
 import com.geek.rpg.game.ScreenManager;
 
-public class SecondMenuScreen implements Screen {
+public class Inventory implements Screen {
     private Texture backgroundTexture;
     private Texture buttonTexture;
     private BitmapFont font96;
@@ -30,7 +30,7 @@ public class SecondMenuScreen implements Screen {
     private Skin skin;
     private float time;
 
-    public SecondMenuScreen(SpriteBatch batch) {
+    public Inventory(SpriteBatch batch) {
         this.batch = batch;
     }
 
@@ -65,49 +65,6 @@ public class SecondMenuScreen implements Screen {
         textButtonStyle.font = font36;
         skin.add("tbs", textButtonStyle);
 
-        Button btnContinue = new TextButton("CONTINUE", skin, "tbs");
-        Button btnSaveGame = new TextButton("SAVE GAME", skin, "tbs");
-        Button btnLoadGame = new TextButton("LOAD GAME", skin, "tbs");
-        Button btnExit = new TextButton("MAIN MENU", skin, "tbs");
-        btnContinue.setPosition(640 - 240, 400);
-        btnSaveGame.setPosition(640 - 240, 300);
-        btnLoadGame.setPosition(640 - 240, 200);
-        btnExit.setPosition(640 - 240, 100);
-        stage.addActor(btnContinue);
-        stage.addActor(btnSaveGame);
-        stage.addActor(btnLoadGame);
-        stage.addActor(btnExit);
-
-        btnContinue.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                GameSession.getInstance().loadSession();
-                ScreenManager.getInstance().switchScreen(ScreenManager.ScreenType.BATTLE);
-            }
-        });
-
-        btnSaveGame.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                GameSession.getInstance().saveSession();
-                ScreenManager.getInstance().switchScreen(ScreenManager.ScreenType.BATTLE);
-            }
-        });
-
-        btnLoadGame.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                GameSession.getInstance().loadSession();
-                ScreenManager.getInstance().switchScreen(ScreenManager.ScreenType.BATTLE);
-            }
-        });
-
-        btnExit.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                ScreenManager.getInstance().switchScreen(ScreenManager.ScreenType.MENU);
-            }
-        });
     }
 
     @Override
@@ -115,7 +72,7 @@ public class SecondMenuScreen implements Screen {
         update(delta);
         batch.begin();
         batch.draw(backgroundTexture, 0, 0);
-        font96.draw(batch, "MENU", 0, 600 + 20.0f * (float) Math.sin(time), 1280, 1, false);
+        font96.draw(batch, "INVENORY", 0, 600 + 20.0f * (float) Math.sin(time), 1280, 1, false);
         batch.end();
         stage.draw();
     }

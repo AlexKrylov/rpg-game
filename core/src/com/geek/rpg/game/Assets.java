@@ -47,7 +47,7 @@ public class Assets {
                 assetManager.finishLoading();
                 textureAtlas = assetManager.get("rpg.pack", TextureAtlas.class);
                 break;
-            case SECONDMENU:
+            case INVENTORY:
                 assetManager.load("rpg.pack", TextureAtlas.class);
                 assetManager.load("background.png", Texture.class);
                 assetManager.load("menuBtn.png", Texture.class);

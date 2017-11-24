@@ -194,6 +194,14 @@ public class BattleScreen implements Screen {
             }
         });
 
+        btnInventory.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                GameSession.getInstance().saveSession();
+                ScreenManager.getInstance().switchScreen(ScreenManager.ScreenType.INVENTORY);
+            }
+        });
+
         List<BaseAction> list = unitFactory.getActions();
 
         for (BaseAction o : list) {

@@ -6,11 +6,11 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.geek.rpg.game.screens.BattleScreen;
 import com.geek.rpg.game.screens.MenuScreen;
-import com.geek.rpg.game.screens.SecondMenuScreen;
+import com.geek.rpg.game.screens.Inventory;
 
 public class ScreenManager {
     public enum ScreenType {
-        MENU, BATTLE, SECONDMENU
+        MENU, BATTLE, INVENTORY
     }
 
     private static final ScreenManager ourInstance = new ScreenManager();
@@ -23,7 +23,7 @@ public class ScreenManager {
     private Viewport viewport;
     private BattleScreen battleScreen;
     private MenuScreen menuScreen;
-    private SecondMenuScreen secondMenuScreen;
+    private Inventory inventory;
 
     public Viewport getViewport() {
         return viewport;
@@ -33,7 +33,7 @@ public class ScreenManager {
         this.rpgGame = rpgGame;
         this.battleScreen = new BattleScreen(batch);
         this.menuScreen = new MenuScreen(batch);
-        this.secondMenuScreen = new SecondMenuScreen(batch);
+        this.inventory = new Inventory(batch);
         this.viewport = new FitViewport(1280, 720);
         this.viewport.update(1280, 720, true);
         this.viewport.apply();
@@ -62,9 +62,9 @@ public class ScreenManager {
                 Assets.getInstance().loadAssets(ScreenType.BATTLE);
                 rpgGame.setScreen(battleScreen);
                 break;
-            case SECONDMENU:
-                Assets.getInstance().loadAssets(ScreenType.SECONDMENU);
-                rpgGame.setScreen(secondMenuScreen);
+            case INVENTORY:
+                Assets.getInstance().loadAssets(ScreenType.INVENTORY);
+                rpgGame.setScreen(inventory);
         }
     }
 
