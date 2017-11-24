@@ -169,6 +169,7 @@ public class BattleScreen implements Screen {
         btnExit.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                GameSession.getInstance().saveSession();
                 ScreenManager.getInstance().switchScreen(ScreenManager.ScreenType.SECONDMENU);
             }
         });

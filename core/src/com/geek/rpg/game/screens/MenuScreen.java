@@ -89,9 +89,9 @@ public class MenuScreen implements Screen {
             public void changed(ChangeEvent event, Actor actor) {
                 GameSession.getInstance().loadSession();
                 ScreenManager.getInstance().switchScreen(ScreenManager.ScreenType.BATTLE);
-//                GameSession.getInstance().saveSession();
             }
         });
+
         btnExitGame.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {

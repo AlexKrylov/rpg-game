@@ -15,6 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.geek.rpg.game.Assets;
+import com.geek.rpg.game.GameSession;
 import com.geek.rpg.game.ScreenManager;
 
 public class SecondMenuScreen implements Screen {
@@ -80,6 +81,7 @@ public class SecondMenuScreen implements Screen {
         btnContinue.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                GameSession.getInstance().loadSession();
                 ScreenManager.getInstance().switchScreen(ScreenManager.ScreenType.BATTLE);
             }
         });
@@ -87,6 +89,7 @@ public class SecondMenuScreen implements Screen {
         btnSaveGame.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                GameSession.getInstance().saveSession();
                 ScreenManager.getInstance().switchScreen(ScreenManager.ScreenType.BATTLE);
             }
         });
@@ -94,7 +97,8 @@ public class SecondMenuScreen implements Screen {
         btnLoadGame.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                ScreenManager.getInstance().switchScreen(ScreenManager.ScreenType.MENU);
+                GameSession.getInstance().loadSession();
+                ScreenManager.getInstance().switchScreen(ScreenManager.ScreenType.BATTLE);
             }
         });
 

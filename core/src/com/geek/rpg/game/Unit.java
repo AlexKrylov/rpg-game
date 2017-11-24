@@ -220,6 +220,7 @@ public class Unit implements Serializable {
         batch.draw(textureHpBar, position.x, position.y + 130, (int) ((float) hp / (float) maxHp * textureHpBar.getRegionWidth()), 20);
         batch.setColor(1, 1, 1, 1);
         font.draw(batch, String.valueOf(hp), position.x, position.y + 149, 90, 1, false);
+        font.draw(batch, "LEVEL" +level+ "", position.x, position.y + 170, 90, 1, false);
     }
 
     public void update(float dt) {
