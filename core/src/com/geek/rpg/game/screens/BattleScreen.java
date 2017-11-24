@@ -29,6 +29,7 @@ import com.geek.rpg.game.SpecialFXEmitter;
 import com.geek.rpg.game.Unit;
 import com.geek.rpg.game.UnitFactory;
 import com.geek.rpg.game.actions.BaseAction;
+import com.geek.rpg.game.actions.RestAction;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -293,7 +294,6 @@ public class BattleScreen implements Screen {
         specialFXEmitter.update(dt);
 
         if (isGameOver(units)) {
-
             if (isHeroTurn()) {
                 currentUnit.getActionPanel().setVisible(false);
             }
@@ -346,6 +346,7 @@ public class BattleScreen implements Screen {
             batch.draw(textureSelector, currentUnit.getTarget().getPosition().x, currentUnit.getTarget().getPosition().y - 5);
             currentUnit.getTarget().showStats(batch, font);
         }
+
         batch.setColor(1, 1, 1, 1);
         for (int i = 0; i < units.size(); i++) {
             units.get(i).render(batch);
@@ -353,6 +354,7 @@ public class BattleScreen implements Screen {
                 units.get(i).renderInfo(batch, font);
             }
         }
+
         if(isGameOver(units)) {
             FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("zorque.ttf"));
             FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
