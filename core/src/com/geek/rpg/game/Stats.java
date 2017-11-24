@@ -1,10 +1,8 @@
 package com.geek.rpg.game;
 
-/**
- * Created by FlameXander on 13.11.2017.
- */
+import java.io.Serializable;
 
-public class Stats implements Cloneable {
+public class Stats implements Cloneable, Serializable {
     private int baseStrength;
     private int baseDexterity;
     private int baseEndurance;
@@ -22,15 +20,6 @@ public class Stats implements Cloneable {
     private float endurancePerLevel;
     private float defencePerLevel;
     private float spellPowerPerLevel;
-    private int level;
-
-    public int getLevel() {
-        return level;
-    }
-
-    public void setLevel(int level) {
-        this.level = level;
-    }
 
     @Override
     protected Object clone() {

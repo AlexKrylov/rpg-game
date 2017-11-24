@@ -1,15 +1,14 @@
 package com.geek.rpg.game.effects;
 
-import com.geek.rpg.game.InfoSystem;
 import com.geek.rpg.game.Unit;
 
-public abstract class Effect {
-    InfoSystem infoSystem;
+import java.io.Serializable;
+
+public abstract class Effect implements Serializable {
     Unit unit;
     int rounds;
 
-    public void start(InfoSystem infoSystem, Unit unit, int rounds) {
-        this.infoSystem = infoSystem;
+    public void start(Unit unit, int rounds) {
         this.unit = unit;
         this.rounds = rounds;
     }

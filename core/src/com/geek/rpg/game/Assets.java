@@ -2,12 +2,7 @@ package com.geek.rpg.game;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-
-/**
- * Created by FlameXander on 13.11.2017.
- */
 
 public class Assets {
     private static final Assets ourInstance = new Assets();
@@ -52,7 +47,7 @@ public class Assets {
                 assetManager.finishLoading();
                 textureAtlas = assetManager.get("rpg.pack", TextureAtlas.class);
                 break;
-            case SECONDMENU:
+            case INVENTORY:
                 assetManager.load("rpg.pack", TextureAtlas.class);
                 assetManager.load("background.png", Texture.class);
                 assetManager.load("menuBtn.png", Texture.class);
@@ -61,6 +56,7 @@ public class Assets {
                 break;
         }
     }
+
 
     public void clear() {
         assetManager.clear();

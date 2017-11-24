@@ -5,9 +5,6 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
-/**
- * Created by FlameXander on 13.11.2017.
- */
 
 public class MyInputProcessor implements InputProcessor {
     private Vector2 cursor;
