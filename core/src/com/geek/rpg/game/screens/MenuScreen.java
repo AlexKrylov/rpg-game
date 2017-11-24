@@ -69,14 +69,21 @@ public class MenuScreen implements Screen {
 
         Button btnNewGame = new TextButton("START NEW GAME", skin, "tbs");
         Button btnContinueGame = new TextButton("CONTINUE GAME", skin, "tbs");
+        Button btnSaveGame = new TextButton("SAVE GAME", skin, "tbs");
+        Button btnLoadGame = new TextButton("LOAD GAME", skin, "tbs");
         Button btnExitGame = new TextButton("EXIT GAME", skin, "tbs");
-        btnNewGame.setPosition(400, 300);
-        btnContinueGame.setPosition(400, 180);
-        btnExitGame.setPosition(400, 60);
+        btnNewGame.setPosition(400, 500);
+        btnContinueGame.setPosition(400, 400);
+        btnSaveGame.setPosition(400, 300);
+        btnLoadGame.setPosition(400, 200);
+        btnExitGame.setPosition(400, 100);
 
         stage.addActor(btnNewGame);
         stage.addActor(btnContinueGame);
         stage.addActor(btnExitGame);
+        stage.addActor(btnSaveGame);
+        stage.addActor(btnLoadGame);
+
         btnNewGame.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -98,6 +105,22 @@ public class MenuScreen implements Screen {
                 Gdx.app.exit();
             }
         });
+
+        btnSaveGame.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                GameSession.getInstance().saveSession();
+                ScreenManager.getInstance().switchScreen(ScreenManager.ScreenType.BATTLE);
+            }
+        });
+
+        btnLoadGame.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                GameSession.getInstance().loadSession();
+                ScreenManager.getInstance().switchScreen(ScreenManager.ScreenType.BATTLE);
+            }
+        });
     }
 
     @Override
@@ -105,7 +128,7 @@ public class MenuScreen implements Screen {
         update(delta);
         batch.begin();
         batch.draw(backgroundTexture, 0, 0);
-        font96.draw(batch, "geek-android-rpg-game", 0, 600 + 20.0f * (float)Math.sin(time), 1280, 1, false);
+        font96.draw(batch, "geek-android-rpg-game", 0, 690 + 20.0f * (float)Math.sin(time), 1280, 1, false);
         batch.end();
         stage.draw();
     }
