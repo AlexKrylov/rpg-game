@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.geek.rpg.game.actions.BaseAction;
+import com.geek.rpg.game.actions.MeleeAttackAction;
 import com.geek.rpg.game.effects.Effect;
 import com.geek.rpg.game.screens.BattleScreen;
 
@@ -27,9 +28,11 @@ public class Unit implements Serializable {
 
     transient private BattleScreen battleScreen;
     private Hero hero;
+    private Unit attacker;
     transient private Unit target;
     transient private TextureRegion texture;
     transient private TextureRegion textureHpBar;
+
     private int hp;
     private int maxHp;
     private int level;

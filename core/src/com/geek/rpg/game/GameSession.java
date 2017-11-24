@@ -42,7 +42,7 @@ public class GameSession {
     public void loadSession() {
         try {
             ObjectInputStream ois = new ObjectInputStream(new FileInputStream(Gdx.files.local("mydata.sav").file()));
-            this.player = (Hero)ois.readObject();
+            this.player = (Hero) ois.readObject();
             ois.close();
         } catch (Exception e) {
             e.printStackTrace();

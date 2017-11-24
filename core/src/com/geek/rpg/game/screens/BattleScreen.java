@@ -50,6 +50,7 @@ public class BattleScreen implements Screen {
     private Skin skin;
     private MyInputProcessor mip;
     private SpecialFXEmitter specialFXEmitter;
+    private int levelUp;
 
     public SpecialFXEmitter getSpecialFXEmitter() {
         return specialFXEmitter;
@@ -263,7 +264,7 @@ public class BattleScreen implements Screen {
         specialFXEmitter.update(dt);
 
         if (isGameOver(units)) {
-            if(isHeroTurn()) {
+            if (isHeroTurn()) {
                 currentUnit.getActionPanel().setVisible(false);
             }
             Button btnChangeLevel = new TextButton("CHANGE LEVEL", skin, "tbs");
@@ -273,7 +274,13 @@ public class BattleScreen implements Screen {
             btnChangeLevel.addListener(new ChangeListener() {
                 @Override
                 public void changed(ChangeEvent event, Actor actor) {
-
+                    levelUp++;
+                    ScreenManager.getInstance().switchScreen(ScreenManager.ScreenType.BATTLE);
+                    for (int i = 0; i < units.size(); i++) {
+                        if (units.get(i).getAutopilot() != null) {
+                            units.get(i).setLevelTo(units.get(i).getLevel() + levelUp);
+                        }
+                    }
                 }
             });
 
@@ -285,6 +292,11 @@ public class BattleScreen implements Screen {
                 @Override
                 public void changed(ChangeEvent event, Actor actor) {
                     ScreenManager.getInstance().switchScreen(ScreenManager.ScreenType.BATTLE);
+                    for (int i = 0; i < units.size(); i++) {
+                        if (units.get(i).getAutopilot() != null) {
+                            units.get(i).setLevelTo(units.get(i).getLevel() + levelUp);
+                        }
+                    }
                 }
             });
         }
