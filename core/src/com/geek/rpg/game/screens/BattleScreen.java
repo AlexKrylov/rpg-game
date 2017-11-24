@@ -51,6 +51,8 @@ public class BattleScreen implements Screen {
     private MyInputProcessor mip;
     private SpecialFXEmitter specialFXEmitter;
     private int levelUp;
+    private int enemyCount, alliesCount;
+    private BitmapFont font96;
 
     public SpecialFXEmitter getSpecialFXEmitter() {
         return specialFXEmitter;
@@ -278,7 +280,7 @@ public class BattleScreen implements Screen {
         }
         for (int i = 0; i < units.size(); i++) {
             units.get(i).update(dt);
-            if (mip.isTouchedInArea(units.get(i).getRect()) && units.get(i).isAlive()) {
+            if (mip.isTouchedInArea(units.get(i).getRect()) && units.get(i).isAlive() && currentUnit.isAlive()) {
                 currentUnit.setTarget(units.get(i));
             }
         }
@@ -291,6 +293,7 @@ public class BattleScreen implements Screen {
         specialFXEmitter.update(dt);
 
         if (isGameOver(units)) {
+
             if (isHeroTurn()) {
                 currentUnit.getActionPanel().setVisible(false);
             }
@@ -350,6 +353,26 @@ public class BattleScreen implements Screen {
                 units.get(i).renderInfo(batch, font);
             }
         }
+        if(isGameOver(units)) {
+            FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("zorque.ttf"));
+            FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+            parameter.size = 96;
+            parameter.borderColor = Color.BLACK;
+            parameter.borderWidth = 1;
+            parameter.shadowColor = Color.BLACK;
+            parameter.shadowOffsetX = -3;
+            parameter.shadowOffsetY = 3;
+            parameter.color = Color.WHITE;
+            font96 = generator.generateFont(parameter);
+            parameter.size = 36;
+            if (enemyCount > alliesCount) {
+                batch.draw(textureBackground, 0, 0);
+                font96.draw(batch, "YOU LOSE", 0, 670 , 1280, 1, false);
+            } else {
+                batch.draw(textureBackground, 0, 0);
+                font96.draw(batch, "YOU WIN", 0, 670, 1280, 1, false);
+            }
+        }
         infoSystem.render(batch, font);
         specialFXEmitter.render(batch);
         batch.end();
@@ -357,8 +380,8 @@ public class BattleScreen implements Screen {
     }
 
     public boolean isGameOver(List<Unit> units) {
-        int enemyCount = 0;
-        int alliesCount = 0;
+        enemyCount = 0;
+        alliesCount = 0;
         for (int i = 0; i < units.size(); i++) {
             if (units.get(i).isAlive() && units.get(i).isAI()) {
                 enemyCount++;

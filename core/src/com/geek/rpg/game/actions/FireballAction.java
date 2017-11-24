@@ -4,7 +4,7 @@ import com.geek.rpg.game.Calculator;
 import com.geek.rpg.game.Unit;
 public class FireballAction extends BaseAction {
     public FireballAction() {
-        super("FIREBALL", "btnFireball");
+        super("FIREBALL", "fireball");
     }
 
     @Override
