@@ -164,14 +164,33 @@ public class BattleScreen implements Screen {
         textButtonStyle.font = font36;
         skin.add("tbs", textButtonStyle);
         Button btnExit = new TextButton("MENU", skin, "tbs");
-        btnExit.setPosition(980, 600);
+        btnExit.setPosition(1020, 650);
+        btnExit.setSize(250, 70);
         stage.addActor(btnExit);
+
+        Button btnShop = new TextButton("SHOP", skin, "tbs");
+        btnShop.setPosition(1020, 550);
+        btnShop.setSize(250, 70);
+        stage.addActor(btnShop);
+
+        Button btnInventory = new TextButton("INVENTORY", skin, "tbs");
+        btnInventory.setPosition(1020, 450);
+        btnInventory.setSize(250, 70);
+        stage.addActor(btnInventory);
 
         btnExit.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 GameSession.getInstance().saveSession();
                 ScreenManager.getInstance().switchScreen(ScreenManager.ScreenType.SECONDMENU);
+            }
+        });
+
+        btnShop.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                GameSession.getInstance().saveSession();
+
             }
         });
 
@@ -328,7 +347,6 @@ public class BattleScreen implements Screen {
         batch.end();
         stage.draw();
     }
-
 
     public boolean isGameOver(List<Unit> units) {
         int enemyCount = 0;

@@ -28,7 +28,6 @@ public class Unit implements Serializable {
 
     transient private BattleScreen battleScreen;
     private Hero hero;
-    private Unit attacker;
     transient private Unit target;
     transient private TextureRegion texture;
     transient private TextureRegion textureHpBar;
@@ -36,6 +35,7 @@ public class Unit implements Serializable {
     private int hp;
     private int maxHp;
     private int level;
+    transient private int money;
     private Rectangle rect;
     private Autopilot autopilot;
     private Vector2 position;
@@ -292,5 +292,10 @@ public class Unit implements Serializable {
         font.draw(batch, "Endurance: " +stats.getEndurance()+"", 15,500);
         font.draw(batch, "Defence: " +stats.getDefence()+"", 15,450);
         font.draw(batch, "SpellPower: " +stats.getSpellpower()+"", 15,400);
+    }
+
+    public void coins(SpriteBatch batch, BitmapFont font) {
+        batch.setColor(0.5f, 0, 0, 1);
+        font.draw(batch, "Money:" +money+ "", 15,600);
     }
 }

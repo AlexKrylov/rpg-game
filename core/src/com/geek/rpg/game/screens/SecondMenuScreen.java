@@ -68,7 +68,7 @@ public class SecondMenuScreen implements Screen {
         Button btnContinue = new TextButton("CONTINUE", skin, "tbs");
         Button btnSaveGame = new TextButton("SAVE GAME", skin, "tbs");
         Button btnLoadGame = new TextButton("LOAD GAME", skin, "tbs");
-        Button btnExit = new TextButton("EXIT", skin, "tbs");
+        Button btnExit = new TextButton("MAIN MENU", skin, "tbs");
         btnContinue.setPosition(640 - 240, 400);
         btnSaveGame.setPosition(640 - 240, 300);
         btnLoadGame.setPosition(640 - 240, 200);
@@ -105,7 +105,7 @@ public class SecondMenuScreen implements Screen {
         btnExit.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                Gdx.app.exit();
+                ScreenManager.getInstance().switchScreen(ScreenManager.ScreenType.MENU);
             }
         });
     }
